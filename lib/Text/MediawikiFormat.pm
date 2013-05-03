@@ -1,5 +1,8 @@
 package Text::MediawikiFormat;
 
+use v5.10;
+use utf8;
+
 use strict;
 use warnings::register;
 
@@ -523,8 +526,8 @@ sub _make_html_link
 	if ($tag =~ /^$s:[$uricCheat][$uric]*$/)
 	{
 	    # absolute link
-	    $href = $&;
-	    $trailing = $& if $href =~ s/[$uriCruft]$//;
+	    $href = ${^MATCH};
+	    $trailing = ${^MATCH} if $href =~ s/[$uriCruft]$//;
 	    $title = $href;
 	}
 	else
@@ -1138,7 +1141,7 @@ sub _find_links
     if (@res)
     {
 	my $re = join "|", @res;
-	$text =~ s/$re/$tags->{link}->($&, $opts, $tags)/ge;
+	$text =~ s/$re/$tags->{link}->(${^MATCH}, $opts, $tags)/ge;
     }
 
     return $text;

@@ -1,5 +1,8 @@
 package Text::MediawikiFormat::Blocks;
 
+use v5.10;
+use utf8;
+
 use strict;
 use warnings::register;
 
